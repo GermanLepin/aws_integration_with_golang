@@ -1,6 +1,8 @@
 package main
 
 import (
+	"aws_integration_with_golang/pkg/handlers"
+	"log"
 	"net/http"
 	"os"
 
@@ -12,29 +14,25 @@ import (
 	"github.com/aws/aws-sdk-go/service/dynamodb/dynamodbiface"
 )
 
-const (
-	awsTableName = "LambdaInGoUser"
-)
-
-var (
-	dynamoDBClient dynamodbiface.DynamoDBAPI
-)
+var dynamoDBClient dynamodbiface.DynamoDBAPI
 
 func main() {
 	region := os.Getenv("AWS_REGION")
-
 	awsConfig := aws.Config{
 		Region: aws.String(region),
 	}
 
 	awsSession, err := session.NewSession(&awsConfig)
 	if err != nil {
+		log.Println("cannot open a new session")
 		return
 	}
 
 	dynamoDBClient = dynamodb.New(awsSession)
 	lambda.Start(handler)
 }
+
+const awsTableName = "aws-dynamodb-users"
 
 func handler(req events.APIGatewayProxyRequest) (events.APIGatewayProxyResponse, error) {
 	switch req.HTTPMethod {
