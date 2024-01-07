@@ -1,8 +1,8 @@
-# aws_integration_with_golang
+# Go serverless project (DynamoDB, Lambda, API Gateway)
 
 The main idea of this repository is to improve my AWS knowledge and experience using Golang as the main language of the service(s).
 
-Before we start setting up AWS and building the zip file of the project, it is necessary to determine the `dynamDB` tablename in `main.go` file. In my case, it is `aws-dynamodb-users`.
+Before we start setting up AWS and building the zip file of the project, it is necessary to determine the `dynamDB` table name in `main.go` file. In my case, it is `aws-dynamodb-users`.
 
 To create a zip file for our project, you need to go to cmd: `cd cmd/` and run the command: `GOARCH=amd64 GOOS=linux go build main.go`. After that, move the `binary main file` to the `build` directory: `mv main ../build`. It is necessary to go back to the root of the project and use the command `zip -jrm build/main.zip build/main` to create a zip file.
 
@@ -20,54 +20,60 @@ Now, the last step that makes everything work is to create the `API Gateway`. Go
 
 Now we can deploy our `API`. In `Stage` I selected `*New stage*`, and in `stage name` I used `staging`. After deploying, we get `Invoke URL` and can fully test it out!
 
-There are our `API` commands, and the first method that we check out is `CREATE`. At the end of this curl command, you need to use your `URL` instead of just `https://.../staging`.
+All logs and additional information about services are available to check here: https://eu-north-1.console.aws.amazon.com/cloudwatch/home?region=eu-north-1#home:
 
-`POST create a user request`
+
+
+# API
+This is our `API`. At the end of every curl command below, you need to use your `URL` instead of just `https://.../staging`.
+
+
+`Create a user request`
 ```
 curl --header "Content-Type: appliction/json" --request POST --data '{"email": "german@gmail.com", "first_name":"German", "last_name":"German"}' https://.../staging
 ```
 
-`POST create a user respose`
+`Create a user respose`
 ```
 {"id":"e926f1b0-f4ba-4be8-a5a0-a02c6f879ceb","first_name":"German","last_name":"German","email":"german@gmail.com"}
 ```
 
-`GET all users request`
+`Get all users request`
 ```
 curl -X GET https://.../staging
 ```
 
-`GET all users respose`
+`Get all users respose`
 ```
 {"id":"e926f1b0-f4ba-4be8-a5a0-a02c6f879ceb","first_name":"German","last_name":"German","email":"german@gmail.com"}
 ```
 
-`GET the user request`
+`Get the user request`
 ```
 curl -X GET https://.../staging\?email\=german@gmail.com
 ```
 
-`GET the user respose`
+`Get the user respose`
 ```
 {"id":"e926f1b0-f4ba-4be8-a5a0-a02c6f879ceb","first_name":"German","last_name":"German","email":"german@gmail.com"}
 ```
  
-`PUT update the user request`
+`Update the user request`
 ```
 curl --header "Content-Type: appliction/json" --request PUT --data '{"email": "german@gmail.com", "first_name":"John", "last_name":"John"}' https://.../staging
 ```
 
-`PUT update the user respose`
+`Update the user respose`
 ```
 {"id":"e926f1b0-f4ba-4be8-a5a0-a02c6f879ceb","first_name":"German","last_name":"German","email":"german@gmail.com"}
 ```
 
-`DELETE the user request`
+`Delete the user request`
 ```
 curl -X DELETE https://.../staging\?email\=german@gmail.com
 ```
 
-`DELETE the user respose`
+`Delete the user respose`
 ```
 null
 ```

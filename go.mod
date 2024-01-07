@@ -1,4 +1,4 @@
-module aws_integration_with_golang
+module go_serverless_project
 
 go 1.21.1
 

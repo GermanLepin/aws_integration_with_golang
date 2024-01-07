@@ -1,7 +1,7 @@
 package main
 
 import (
-	"aws_integration_with_golang/pkg/handlers"
+	"go_serverless_project/pkg/handlers"
 	"log"
 	"net/http"
 	"os"
