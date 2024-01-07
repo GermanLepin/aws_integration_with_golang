@@ -20,15 +20,56 @@ Now, the last step that makes everything work is to create the `API Gateway`. Go
 
 Now we can deploy our `API`. In `Stage` I selected `*New stage*`, and in `stage name` I used `staging`. After deploying, we get `Invoke URL` and can fully test it out!
 
-There are our `API` commands, and the first method that we check out is `CREATE`. At the end of this curl command, you need to use your `URL` instead of just `https://...`.
+There are our `API` commands, and the first method that we check out is `CREATE`. At the end of this curl command, you need to use your `URL` instead of just `https://.../staging`.
 
-`Create Request`
+`POST create a user request`
 ```
-curl --header "Content-Type: appliction/json" --request POST --data '{"email": "german@gmail.com", "first_name":"German", "last_name":"German"}' https://...
+curl --header "Content-Type: appliction/json" --request POST --data '{"email": "german@gmail.com", "first_name":"German", "last_name":"German"}' https://.../staging
 ```
 
-`Create Respose`
+`POST create a user respose`
 ```
 {"id":"e926f1b0-f4ba-4be8-a5a0-a02c6f879ceb","first_name":"German","last_name":"German","email":"german@gmail.com"}
 ```
+
+`GET all users request`
+```
+curl -X GET https://.../staging
+```
+
+`GET all users respose`
+```
+{"id":"e926f1b0-f4ba-4be8-a5a0-a02c6f879ceb","first_name":"German","last_name":"German","email":"german@gmail.com"}
+```
+
+`GET the user request`
+```
+curl -X GET https://.../staging\?email\=german@gmail.com
+```
+
+`GET the user respose`
+```
+{"id":"e926f1b0-f4ba-4be8-a5a0-a02c6f879ceb","first_name":"German","last_name":"German","email":"german@gmail.com"}
+```
+ 
+`PUT update the user request`
+```
+curl --header "Content-Type: appliction/json" --request PUT --data '{"email": "german@gmail.com", "first_name":"John", "last_name":"John"}' https://.../staging
+```
+
+`PUT update the user respose`
+```
+{"id":"e926f1b0-f4ba-4be8-a5a0-a02c6f879ceb","first_name":"German","last_name":"German","email":"german@gmail.com"}
+```
+
+`DELETE the user request`
+```
+curl -X DELETE https://.../staging\?email\=german@gmail.com
+```
+
+`DELETE the user respose`
+```
+null
+```
+
 

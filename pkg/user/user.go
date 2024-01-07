@@ -118,6 +118,7 @@ func FetchUsers(
 	return item, nil
 }
 
+// todo improve the UpdateUser method (update separately)
 func UpdateUser(
 	req events.APIGatewayProxyRequest,
 	awsTableName string,
@@ -152,6 +153,7 @@ func UpdateUser(
 	return &user, nil
 }
 
+// todo improve the DeleteUser method (response)
 func DeleteUser(
 	req events.APIGatewayProxyRequest,
 	awsTableName string,
